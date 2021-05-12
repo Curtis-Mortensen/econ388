@@ -1,0 +1,251 @@
+---
+  title: "Chapter 3 Homework"
+Name: "Put name here"
+output:
+  pdf_document: default
+html_document: default
+---
+  
+  # HW Ch 3  {.tabset}
+  
+  ## Packages used in this key
+  ```{r message=FALSE, warning=FALSE}
+library(wooldridge)
+library(tidyverse)
+library(pander)
+library(mosaic)
+library(foreign)
+library(car)
+```
+
+## Question 1
+
+A problem of interest to health officials (and others) is to determine the effects of smoking during pregnancy on infant health. One measure of infant health is birth weight; a birth weight that is too low can put an infant at risk for contracting various illnesses. Since factors other than cigarette smoking that affect birth weight are likely to be correlated with smoking, we should take those factors into account. For example, higher income generally results in access to better prenatal care, as well as better nutrition for the mother. An equation that recognizes this is
+$$ bwght = \beta_{0} + \beta_{1} cigs + \beta_{2} faminc + u $$
+  
+  #### (a) 
+  What is the most likely sign for $\beta{2}$?
+  
+  
+  
+  
+  
+  
+  #### (b) 
+  Do you think $cigs$ and $faminc$ are likely to be correlated? Explain why the correlation might be positive or negative.
+
+
+
+
+
+
+#### (c)
+How, estimate the equation with and without $faminc$, using the data in "bwght." Report the results in equation form, including the sample size and R-squared. Discuss your results, focusing on whether adding $faminc$ substantially changes the estimated effect of $cigs$ on $bwght$
+  
+  ```{r}
+
+```
+
+
+
+
+
+
+
+
+## Question 2 
+Use the data in "hprice1" to estimate the model
+$$ price = \beta_{0} + \beta_{1} sqrft  + \beta_{2} bdrms +u $$
+  where $price$ is the household price measured in thousands of dollars.
+
+```{r}
+
+
+```
+
+
+
+
+#### (a) 
+Write out the results in equation form.
+
+
+
+
+
+
+#### (b) 
+What is the estimated increase in price for a house with one more bedroom, holding square footage constant?
+  
+  
+  
+  
+  
+  
+  
+  #### (c) 
+  What is the estimated increase in price for a house with an additional bedroom that is 140 square feet in size? Compare this to your answers in part (ii)
+
+```{r}
+
+
+```
+
+
+
+
+
+#### (d) 
+What percentage of the variation in price is explained by square footage and number of bedrooms?
+  
+  
+  
+  
+  
+  
+  #### (e) 
+  The first house in the sample has $sqrft=2438$ and $bdrms = 4$. Find the predicted selling price for this house from the OLS regression line.
+
+```{r}
+
+```
+
+
+
+
+
+#### (f) 
+The actual selling price of the first house in the sample was $\$300,000$ (so $price=300$). Find the residual for this house. Does it suggest that the buyer underpaid or overpaid for the house?
+  
+  ```{r}
+
+
+```
+
+
+
+
+
+
+## Question 3
+Use the data in "meap93" to answer this question.
+
+#### (a) 
+Estimate the model
+
+$$ math10 = \beta_{0} + \beta_{1} \log(expend) + \beta_{2} lnchprg + u $$
+  and report the results in the usual form, including the sample size and R-squared. Are the signs of the slope coefficients what you expected? Explain.
+
+```{r}
+
+
+```
+
+
+
+
+
+
+#### (b) 
+What do you make of the intercept you estimated in part (i)? In particular, does it make sense to set the two explanatory variables to zero? [*Hint*: Recall that $\log(1)=0$]
+
+
+
+
+
+
+#### (c)
+Now run the simple regression of $math10$ on $\log(expend)$, and compare the slope coefficients with the estimate obtained in part (i). Is the estimated spending effect now larger or smaller than in part (i)?
+  
+  
+  ```{r}
+
+
+```
+
+
+
+
+
+
+#### (d)
+Find the correlation between $$lexpend=\log(expend)$$ and $$lnchprg$$ . Does its sign make sense to you?
+  ```{r}
+
+```
+
+
+
+
+
+
+
+#### (e)
+Use part (iv) to explain your findings in part (iii)
+
+
+
+
+
+
+
+## Question 4
+Use the data "meapsingle" to study the effects of single-parent households on student math performance. These data are for a subset of schools in southeast Michigan for the year 2000. The socio-economic variables are obtained at the ZIP code level (where ZIP code is assigned to schools based on their mailing address)
+
+#### (a)
+Run the simple regression of $$math4$$ on $$pctsgle$$ and report the results in the usual format. Interpret the slope coefficient. Does the effect of single parenthood seem large or small?
+  
+  ```{r}
+
+```
+
+
+
+
+
+
+
+#### (b)
+Add the variables $$lmedinc$$ and $$free$$ to the equation. What happens to the coefficient on $$pctsgle$$? Explain what is happening.
+
+```{r}
+
+```
+
+
+
+
+
+#### (c)
+Find the sample correlation between $lmedinc$ and $free$. Does it have the sign you expect?
+  ```{r}
+
+```
+
+
+
+
+
+
+#### (d)
+Does the substantial correlation between $lmedinc$ and $free$ mean that you should drop one from the regression to better estimate the causal effect of single parenthood on student performance? Explain.
+
+
+
+
+
+
+
+#### (e)
+Find the variance inflation factors (VIFs) for each of the explanatory variables appearing in the regression in part (ii). Which variable has the largest VIF? Does this knowledge affect the model you would use to study the causal effect of single parenthood on math performance?
+  
+  ```{r}
+
+```
+
+
+
+```{r}
+
+```
+
