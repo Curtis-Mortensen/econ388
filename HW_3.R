@@ -1,6 +1,6 @@
 ---
   title: "Chapter 3 Homework"
-Name: "Put name here"
+Name: "Curtis Mortensen"
 output:
   pdf_document: default
 html_document: default
