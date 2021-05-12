@@ -42,7 +42,10 @@ $$ bwght = \beta_{0} + \beta_{1} cigs + \beta_{2} faminc + u $$
 #### (c)
 How, estimate the equation with and without $faminc$, using the data in "bwght." Report the results in equation form, including the sample size and R-squared. Discuss your results, focusing on whether adding $faminc$ substantially changes the estimated effect of $cigs$ on $bwght$
   
-  ```{r}
+```{r}
+data(bwght, package='wooldridge')
+faminc <- bwght$faminc
+
 
 ```
 
