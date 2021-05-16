@@ -156,8 +156,11 @@ $$ math10 = \beta_{0} + \beta_{1} \log(expend) + \beta_{2} lnchprg + u $$
   and report the results in the usual form, including the sample size and R-squared. Are the signs of the slope coefficients what you expected? Explain.
 
 ```{r}
-
-
+data(meap93, package='wooldridge')
+math10 <- meap93$math10
+lnchprg <- meap93$lnchprg
+lexpend <- meap93$lexpend
+meap93
 ```
 
 
@@ -214,7 +217,11 @@ Use the data "meapsingle" to study the effects of single-parent households on st
 #### (a)
 Run the simple regression of $$math4$$ on $$pctsgle$$ and report the results in the usual format. Interpret the slope coefficient. Does the effect of single parenthood seem large or small?
   
-  ```{r}
+```{r}
+data(meapsingle, package='wooldridge')
+meapsingle
+math4 <- meapsingle$math4
+pctsgle <- meapsingle$pctsgle
 
 ```
 
@@ -228,6 +235,8 @@ Run the simple regression of $$math4$$ on $$pctsgle$$ and report the results in 
 Add the variables $$lmedinc$$ and $$free$$ to the equation. What happens to the coefficient on $$pctsgle$$? Explain what is happening.
 
 ```{r}
+lmedinc <- meapsingle$lmedinc
+free <- meapsingle$free
 
 ```
 
