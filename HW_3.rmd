@@ -18,6 +18,8 @@ library(foreign)
 library(car)
 ```
 
+# 1 c model_2, 2 a doing two variables, figuring out a certain value, and percentages of the model explained by ____
+
 ## Question 1
 
 A problem of interest to health officials (and others) is to determine the effects of smoking during pregnancy on infant health. One measure of infant health is birth weight; a birth weight that is too low can put an infant at risk for contracting various illnesses. Since factors other than cigarette smoking that affect birth weight are likely to be correlated with smoking, we should take those factors into account. For example, higher income generally results in access to better prenatal care, as well as better nutrition for the mother. An equation that recognizes this is
@@ -27,7 +29,7 @@ $$ bwght = \beta_{0} + \beta_{1} cigs + \beta_{2} faminc + u $$
   What is the most likely sign for $\beta{2}$?
   
   
-  
+  positive because it's likely to increase the birth weight. 
   
   
   
@@ -35,7 +37,7 @@ $$ bwght = \beta_{0} + \beta_{1} cigs + \beta_{2} faminc + u $$
   Do you think $cigs$ and $faminc$ are likely to be correlated? Explain why the correlation might be positive or negative.
 
 
-
+Well, I think that's a hard question, and it depends on the years. I think culturally the use of cigarettes has shifted from upper class to mainstream to more lower class over time. So, I suppose nowdays there is likely to be a negative correlation, meaning that increased cigarette use is more likely among lower-earning people. 
 
 
 
@@ -45,7 +47,14 @@ How, estimate the equation with and without $faminc$, using the data in "bwght."
 ```{r}
 data(bwght, package='wooldridge')
 faminc <- bwght$faminc
+cigs <- bwght$cigs
+bwght <- bwght$bwght
 
+model_1 <- lm(bwght~cigs)
+summary(model_1)
+
+# model_2 <- lm(bwght~cigs~faminc)
+# summmary(model_2)
 
 ```
 
@@ -62,6 +71,13 @@ $$ price = \beta_{0} + \beta_{1} sqrft  + \beta_{2} bdrms +u $$
   where $price$ is the household price measured in thousands of dollars.
 
 ```{r}
+data(hprice1, package='wooldridge')
+sqrft <- hprice1$sqrft
+bdrms <- hprice1$bdrms
+price <- hprice1$price
+
+# model_price <- lm(price~sqrft~bdrms)
+# model_price
 
 
 ```
