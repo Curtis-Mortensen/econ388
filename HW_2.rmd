@@ -30,7 +30,7 @@ $$ E( \tilde{\beta_1})$$ in terms of the xi, $$\beta_0 $$ and $$ \beta_1 $$
   Verify that $$ E( \tilde{\beta_1})$$  is unbiased for $$ \beta_1 $$ when the population intercept ($$\beta_0 $$) is zero. Are there other cases where $$ E( \tilde{\beta_1})$$ is unbiased? 
   
   
-  
+  everybody used quizlet. and actually, this makes sense. 
   
   
   
@@ -39,7 +39,7 @@ $$ E( \tilde{\beta_1})$$ in terms of the xi, $$\beta_0 $$ and $$ \beta_1 $$
   $$ E( \tilde{\beta_1})$$ 
   
   
-  
+  SSE/SSR
   
   
   
@@ -118,6 +118,7 @@ sd(x)
 #### b) Randomly generate 500 errors, $u_{i}$ from the Normal(0,36) distribution. (if you generate a Normal(0,1), as commonly available, simply multiply the outcomes by six.) Is the sample average of the $u_{i}$ exactly zero? Why or why not? What is the sample standard deviation of $u_{i}$?
 
 ```{r}
+# in programming language, that's the mean and the SD 
 u <- (rnorm(500)*6)
 mean(u)
 sd(u)
