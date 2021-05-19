@@ -134,7 +134,7 @@ If I understand the question correctly, the R-squared value is .62, so our model
 ```{r}
 y1 = -19.315 + (.1284*2438) + (1.1982*4)
 y1
-# The predicted selling price for this house is $298,500 (rounded) 
+# The predicted selling price for this house is $298,500 (rounded). 
 ```
 
 
@@ -145,7 +145,7 @@ y1
 The actual selling price of the first house in the sample was $\$300,000$ (so $price=300$). Find the residual for this house. Does it suggest that the buyer underpaid or overpaid for the house?
   
   ```{r}
-
+# The residual for that price would be 1.5 or $1,500 (rounded). That suggests that the buyer overpaid for the house, but admittedly not by much. 
 
 ```
 
@@ -164,10 +164,19 @@ $$ math10 = \beta_{0} + \beta_{1} \log(expend) + \beta_{2} lnchprg + u $$
   and report the results in the usual form, including the sample size and R-squared. Are the signs of the slope coefficients what you expected? Explain.
 
 ```{r}
+#   nrow(model.frame(lmObject)) is one option
+
 data(meap93, package='wooldridge')
 math10 <- meap93$math10
 lnchprg <- meap93$lnchprg
 lexpend <- meap93$lexpend
+
+m10 <- lm(math10~lexpend+lnchprg)
+summary(m10)
+
+nrow(model.frame(m10))
+# The sample size is 408 and the R-squared is .18 (rounded). The sign for expendatures is positive, and the sign for lnchprg is negative. 
+
 meap93
 ```
 
