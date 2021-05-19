@@ -50,12 +50,13 @@ faminc <- bwght$faminc
 cigs <- bwght$cigs
 bwght <- bwght$bwght
 
-model_1 <- lm(bwght~cigs)
-summary(model_1)
+m1 <- lm(bwght~cigs)
+summary(m1)
 
-# model_2 <- lm(bwght~cigs~faminc)
-# summmary(model_2)
+m2 <- lm(bwght~cigs+faminc)
+summary(m2)
 
+# The first equation is estimated to be y = 119.77 + -0.51 cigs. It has a sample size of ____ and an R-squared of 0.022. The second equation is y = 116.97 +  -0.46 cigs + 0.09 faminc. It has a sample size of ____ and an R-squared of 0.028. However, I do not consider the addition of family income to have a substantial influence on the estimated effect of cigarettes on birth weight. I would base my analysis on the new standard error, not the R-squared. The new standard error is 0.092, and the old standard error was 0.090. So, we haven't removed much of the variance in cigarettes, and I would not consider us to changed the model very much. 
 ```
 
 
@@ -76,8 +77,10 @@ sqrft <- hprice1$sqrft
 bdrms <- hprice1$bdrms
 price <- hprice1$price
 
-# model_price <- lm(price~sqrft~bdrms)
-# model_price
+hprice1 
+
+mp <- lm(price~sqrft+bdrms)
+mp
 
 
 ```
@@ -88,7 +91,7 @@ price <- hprice1$price
 #### (a) 
 Write out the results in equation form.
 
-
+y = -19.315 + .1284 sqrft + 1.1982 bdrms
 
 
 
@@ -96,7 +99,7 @@ Write out the results in equation form.
 #### (b) 
 What is the estimated increase in price for a house with one more bedroom, holding square footage constant?
   
-  
+There is an estimated increase of 15.20 in our model, which translates to an increase of $15,200 (rounded). 
   
   
   
@@ -106,7 +109,11 @@ What is the estimated increase in price for a house with one more bedroom, holdi
   What is the estimated increase in price for a house with an additional bedroom that is 140 square feet in size? Compare this to your answers in part (ii)
 
 ```{r}
+y = (.1284*140) + 1.1982
+y
+# When we consider the addition of square feet to our model as well as listing 1 more bedroom the model estimates an increase of $19,200 (rounded). This reveals a flaw in  our previous analysis, because the previous price increase would only be true for a bedroom of 0 sq ft, which of course is impossible. 
 
+summary(mp)
 
 ```
 
@@ -117,8 +124,7 @@ What is the estimated increase in price for a house with one more bedroom, holdi
 #### (d) 
 What percentage of the variation in price is explained by square footage and number of bedrooms?
   
-  
-  
+If I understand the question correctly, the R-squared value is .62, so our model explains approximately 62% of the variation in our model. Admittedly our intercept helps the model to account for more variation as well. 
   
   
   
@@ -126,7 +132,9 @@ What percentage of the variation in price is explained by square footage and num
   The first house in the sample has $sqrft=2438$ and $bdrms = 4$. Find the predicted selling price for this house from the OLS regression line.
 
 ```{r}
-
+y1 = -19.315 + (.1284*2438) + (1.1982*4)
+y1
+# The predicted selling price for this house is $298,500 (rounded) 
 ```
 
 
