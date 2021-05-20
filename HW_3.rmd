@@ -177,12 +177,13 @@ math10 <- meap93$math10
 lnchprg <- meap93$lnchprg
 lexpend <- meap93$lexpend
 
-m10 <- lm(math10~lexpend+lnchprg)
+m10 <- lm(math10~log(lexpend)+lnchprg)
 summary(m10)
 
 nrow(model.frame(m10))
-# The sample size is 408 and the R-squared is .18 (rounded). The sign for expendatures is positive, and the sign for lnchprg is negative. I actually would have expected those signs. It makes sense that schools that spend more money have schools who do better on tests because they have better curriculum, or because they come from better socio-economic background. In contrast, I would expect that students enrolled in the lunch program come from a lower socioeconomic status and score lower on the test. 
+# The sample size is 408 and the R-squared is .18 (rounded). The sign for expenditures is positive, and the sign for lnchprg is negative. I actually would have expected those signs. It makes sense that schools that spend more money have schools who do better on tests because they have better curriculum, or because they come from better socio-economic background. In contrast, I would expect that students enrolled in the lunch program come from a lower socioeconomic status and score lower on the test. 
 
+meap93
 ```
 
 
@@ -193,7 +194,7 @@ nrow(model.frame(m10))
 #### (b) 
 What do you make of the intercept you estimated in part (i)? In particular, does it make sense to set the two explanatory variables to zero? [*Hint*: Recall that $\log(1)=0$]
 
-In part a I estimated the intercept at 117.0 (rounded). However, it doesn't make sense to set expendatures at 0. It's impossible for a school not to spend money on it's students. I do think it's possible though to have lunch program enrollment at 0, in a wealthy school where no students need lunches. 
+In part a I estimated the intercept at 117.0 (rounded). I think it could make sense to set the explanatory variables at 0. It is possible for a school to have a 0% change in expenditures, which is what log(lexpend) would measure. I also think it's possible though to have lunch program enrollment at 0, in a wealthy school where no students need lunches. 
 
 
 
@@ -206,7 +207,7 @@ Now run the simple regression of $math10$ on $\log(expend)$, and compare the slo
 mlog <- lm(math10~log(lexpend))
 summary(mlog)
 
-# The slope co-efficient is 93.70 now, whereas it was 6.22 before. So, the estimated spending effect is now much larger. 
+# The slope co-efficient is 93.70 now, whereas it was 51.86 before. So, the estimated spending effect is now larger. 
 ```
 
 
@@ -217,10 +218,11 @@ summary(mlog)
 #### (d)
 Find the correlation between $$lexpend=\log(expend)$$ and $$lnchprg$$ . Does its sign make sense to you?
 ```{r}
-mlog2 <- lm(log(lexpend)~lnchprg)
+mlog2 <- lm(lexpend~log(lexpend)+lnchprg)
 mlog2
 
-# The sign that I got was negative. 
+# The sign that I got for log(expend) is positive, as is lnchprg. It does make sense to me that expenditures increase as the percentage of expenditures increases, and as more students are enrolled in the lunch program.  
+meapsingle
 ```
 
 
@@ -232,7 +234,7 @@ mlog2
 #### (e)
 Use part (iv) to explain your findings in part (iii)
 
-
+The coefficient log(expend) really just tells me how much expend increases in dollars for every % change in expend. Basically, each percentage increase corresponds with \$8.45e per student. In addition, I can find how much of an increase, on average, there is in expenditures for another 1% of the student body that is enrolled in the lunch program. For every 1% enrollment increase there is an increase of \$5.28e per student.
 
 
 
