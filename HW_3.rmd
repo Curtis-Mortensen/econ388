@@ -305,7 +305,9 @@ It doesn't look like medinc and free have particularly significant correlations.
 Find the variance inflation factors (VIFs) for each of the explanatory variables appearing in the regression in part (ii). Which variable has the largest VIF? Does this knowledge affect the model you would use to study the causal effect of single parenthood on math performance?
   
 ```{r}
+vif(ms2)
 
+# pctsgle has the largest VIF. I suppose it depends on whether I think single parenthood is significant. If I think that single parenthood can in essense be distilled down to income and likelyhood of participation in free lunches, I can remove it. However, I believe single parenthood likely has an effect outside of income and social benefits, and so I'm obligated to keep it in the model. 
 ```
 
 
