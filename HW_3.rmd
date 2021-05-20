@@ -1,15 +1,15 @@
 ---
-  title: "Chapter 3 Homework"
+title: "Chapter 3 Homework"
 Name: "Curtis Mortensen"
 output:
   pdf_document: default
 html_document: default
 ---
   
-  # HW Ch 3  {.tabset}
+# HW Ch 3  {.tabset}
   
-  ## Packages used in this key
-  ```{r message=FALSE, warning=FALSE}
+## Packages used in this key
+```{r message=FALSE, warning=FALSE}
 library(wooldridge)
 library(tidyverse)
 library(pander)
@@ -18,8 +18,6 @@ library(foreign)
 library(car)
 ```
 
-# I still need to figure out logs and log explainations. 
-
 # 1 c model_2, 2 a doing two variables, figuring out a certain value, and percentages of the model explained by ____
 
 ## Question 1
@@ -27,15 +25,15 @@ library(car)
 A problem of interest to health officials (and others) is to determine the effects of smoking during pregnancy on infant health. One measure of infant health is birth weight; a birth weight that is too low can put an infant at risk for contracting various illnesses. Since factors other than cigarette smoking that affect birth weight are likely to be correlated with smoking, we should take those factors into account. For example, higher income generally results in access to better prenatal care, as well as better nutrition for the mother. An equation that recognizes this is
 $$ bwght = \beta_{0} + \beta_{1} cigs + \beta_{2} faminc + u $$
   
-  #### (a) 
-  What is the most likely sign for $\beta{2}$?
+#### (a) 
+What is the most likely sign for $\beta{2}$?
   
   
 Positive because it's likely to increase the birth weight. 
   
   
   
-  #### (b) 
+#### (b) 
 Do you think $cigs$ and $faminc$ are likely to be correlated? Explain why the correlation might be positive or negative.
 
 
@@ -62,10 +60,10 @@ nrow(model.frame(m1))
 nrow(model.frame(m2))
 
 
-# The first equation is estimated to be y = 119.77 + -0.51 cigs. It has a sample size of 1388 observations and an R-squared of 0.022. The second equation is y = 116.97 +  -0.46 cigs + 0.09 faminc. It still has a sample size of 1388 observations, it just includes more variables, and has an R-squared of 0.028. However, I do not consider the addition of family income to have a substantial influence on the estimated effect of cigarettes on birth weight. I would base my analysis on the new standard error, not the R-squared. The new standard error is 0.092, and the old standard error was 0.090. So, we haven't removed much of the variance in cigarettes, and I would not consider us to changed the model very much. 
 ```
 
 
+The first equation is estimated to be y = 119.77 + -0.51 cigs. It has a sample size of 1388 observations and an R-squared of 0.022. The second equation is y = 116.97 +  -0.46 cigs + 0.09 faminc. It still has a sample size of 1388 observations, it just includes more variables, and has an R-squared of 0.028. However, I do not consider the addition of family income to have a substantial influence on the estimated effect of cigarettes on birth weight. I would base my analysis on the new standard error, not the R-squared. The new standard error is 0.092, and the old standard error was 0.090. So, we haven't removed much of the variance in cigarettes, and I would not consider us to changed the model very much. 
 
 
 
@@ -83,7 +81,6 @@ sqrft <- hprice1$sqrft
 bdrms <- hprice1$bdrms
 price <- hprice1$price
 
-hprice1 
 
 mp <- lm(price~sqrft+bdrms)
 mp
@@ -111,17 +108,18 @@ There is an estimated increase of 15.20 in our model, which translates to an inc
   
   
   
-  #### (c) 
-  What is the estimated increase in price for a house with an additional bedroom that is 140 square feet in size? Compare this to your answers in part (ii)
+#### (c) 
+What is the estimated increase in price for a house with an additional bedroom that is 140 square feet in size? Compare this to your answers in part (ii)
 
 ```{r}
 y = (.1284*140) + 1.1982
 y
-# When we consider the addition of square feet to our model as well as listing 1 more bedroom the model estimates an increase of $19,200 (rounded). This reveals a flaw in  our previous analysis, because the previous price increase would only be true for a bedroom of 0 sq ft, which of course is impossible. 
 
 summary(mp)
 
 ```
+
+When we consider the addition of square feet to our model as well as listing 1 more bedroom the model estimates an increase of $19,200 (rounded). This reveals a flaw in  our previous analysis, because the previous price increase would only be true for a bedroom of 0 sq ft, which of course is impossible. 
 
 
 
@@ -134,16 +132,15 @@ If I understand the question correctly, the R-squared value is .62, so our model
   
   
   
-  #### (e) 
-  The first house in the sample has $sqrft=2438$ and $bdrms = 4$. Find the predicted selling price for this house from the OLS regression line.
+#### (e) 
+The first house in the sample has $sqrft=2438$ and $bdrms = 4$. Find the predicted selling price for this house from the OLS regression line.
 
 ```{r}
 y1 = -19.315 + (.1284*2438) + (1.1982*4)
 y1
-# The predicted selling price for this house is $298,500 (rounded). 
 ```
 
-
+The predicted selling price for this house is $298,500 (rounded). 
 
 
 
@@ -167,11 +164,9 @@ Use the data in "meap93" to answer this question.
 Estimate the model
 
 $$ math10 = \beta_{0} + \beta_{1} \log(expend) + \beta_{2} lnchprg + u $$
-  and report the results in the usual form, including the sample size and R-squared. Are the signs of the slope coefficients what you expected? Explain.
+and report the results in the usual form, including the sample size and R-squared. Are the signs of the slope coefficients what you expected? Explain.
 
 ```{r}
-#   nrow(model.frame(lmObject)) is one option
-
 data(meap93, package='wooldridge')
 math10 <- meap93$math10
 lnchprg <- meap93$lnchprg
@@ -181,12 +176,10 @@ m10 <- lm(math10~log(lexpend)+lnchprg)
 summary(m10)
 
 nrow(model.frame(m10))
-# The sample size is 408 and the R-squared is .18 (rounded). The sign for expenditures is positive, and the sign for lnchprg is negative. I actually would have expected those signs. It makes sense that schools that spend more money have schools who do better on tests because they have better curriculum, or because they come from better socio-economic background. In contrast, I would expect that students enrolled in the lunch program come from a lower socioeconomic status and score lower on the test. 
-
-meap93
 ```
 
 
+The sample size is 408 and the R-squared is .18 (rounded). The sign for expenditures is positive, and the sign for lnchprg is negative. I actually would have expected those signs. It makes sense that schools that spend more money have schools who do better on tests because they have better curriculum, or because they come from better socio-economic background. In contrast, I would expect that students enrolled in the lunch program come from a lower socioeconomic status and score lower on the test. 
 
 
 
@@ -207,8 +200,8 @@ Now run the simple regression of $math10$ on $\log(expend)$, and compare the slo
 mlog <- lm(math10~log(lexpend))
 summary(mlog)
 
-# The slope co-efficient is 93.70 now, whereas it was 51.86 before. So, the estimated spending effect is now larger. 
 ```
+The slope co-efficient is 93.70 now, whereas it was 51.86 before. So, the estimated spending effect is now larger. 
 
 
 
@@ -221,11 +214,8 @@ Find the correlation between $$lexpend=\log(expend)$$ and $$lnchprg$$ . Does its
 mlog2 <- lm(lexpend~log(lexpend)+lnchprg)
 mlog2
 
-# The sign that I got for log(expend) is positive, as is lnchprg. It does make sense to me that expenditures increase as the percentage of expenditures increases, and as more students are enrolled in the lunch program.  
-meapsingle
 ```
-
-
+The sign that I got for log(expend) is positive, as is lnchprg. It does make sense to me that expenditures increase as the percentage of expenditures increases, and as more students are enrolled in the lunch program.  
 
 
 
@@ -248,17 +238,15 @@ Run the simple regression of $$math4$$ on $$pctsgle$$ and report the results in 
   
 ```{r}
 data(meapsingle, package='wooldridge')
-meapsingle
 math4 <- meapsingle$math4
 pctsgle <- meapsingle$pctsgle
 
 ms <- lm(math4~pctsgle)
 summary(ms)
-# The R-squared is .3768 and the sample size is 229 observations. The slope coefficient is -0.83288 which means that single parents do have a negative effect on math scores. However, it makes a difference of less than 1%, which is probably not a very large effect. 
 
-ms
 ```
 
+The R-squared is .3768 and the sample size is 229 observations. The slope coefficient is -0.83288 which means that single parents do have a negative effect on math scores. However, it makes a difference of less than 1%, which is probably not a very large effect. 
 
 
 
@@ -275,10 +263,9 @@ free <- meapsingle$free
 ms2 <- lm(math4~pctsgle+lmedinc+free)
 summary(ms2)
 
-# After I add free and median income to the equation the coefficient on pctsgle decreases down to -0.200 (rounded). That means that factoring in the other variables suggests that the effect of a single parent is smaller than we previously thought. 
 ```
 
-
+After I add free and median income to the equation the coefficient on pctsgle decreases down to -0.200 (rounded). That means that factoring in the other variables suggests that the effect of a single parent is smaller than we previously thought. 
 
 
 
@@ -289,8 +276,8 @@ ms3 <- lm(lmedinc~free)
 
 summary(ms3)
 
-#Free has a negative sign for median income. That suggests that the percentage of people eligible for free lunches is correlated with a lower median income in a geographic area. 
 ```
+Free has a negative sign for median income. That suggests that the percentage of people eligible for free lunches is correlated with a lower median income in a geographic area. 
 
 
 
@@ -309,9 +296,8 @@ Find the variance inflation factors (VIFs) for each of the explanatory variables
 ```{r}
 vif(ms2)
 
-# pctsgle has the largest VIF. I suppose it depends on whether I think single parenthood is significant. If I think that single parenthood can in essense be distilled down to income and likelyhood of participation in free lunches, I can remove it. However, I believe single parenthood likely has an effect outside of income and social benefits, and so I'm obligated to keep it in the model. 
 ```
-
+pctsgle has the largest VIF. I suppose it depends on whether I think single parenthood is significant. If I think that single parenthood can in essense be distilled down to income and likelyhood of participation in free lunches, I can remove it. However, I believe single parenthood likely has an effect outside of income and social benefits, and so I'm obligated to keep it in the model. 
 
 
 ```{r}
