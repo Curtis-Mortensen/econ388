@@ -28,6 +28,8 @@ $$ voteA = \beta_0 + \beta_1log(expendA) + \beta_2log(expendB) + \beta_3prtystrA
 where *voteA* is the percentage of the vote received by Candidate A, *expendA* and *expendB* are campaign expenditures by Candidates A and B, and *prtystrA* is a measure of party strength for Candidate A (the percentage of the most recent presidential vote that went to A's party). 
 
 
+- see pg 110 for taking lsat and gpa out 
+
 #### a) 
 
 What is the interpretation of $$\beta_0$$?
@@ -44,7 +46,7 @@ Beta_0 is the amount of votes that Candidate A would get if they spent nothing o
 In terms of the parameters, state the null hypothesis that a 1% increase in A's expenditures is offset by a 1% increase in B's expenditures.
 
 
-
+B1 - B2 /= 0
 
 
 
@@ -55,11 +57,15 @@ Estimate the given model using the data in VOTE1 and report the results in usual
 
 
 ```{r}
-library(wooldridge)
-vote1 <- data("vote1", package='wooldridge')
-vote1
-```
+expendA <- data$expendA
+expendB <- data$expendB
+prtyA <- data$prtystrA
+voteA <- data$voteA
 
+m1 <- lm(voteA ~ expendA + expendB + prtyA)
+m1
+```
+Yes, A's expendatures have a coefficient of .035, so each 1% increase in spending causes a 3.5% increase in votes for Candidate A. B's expendatures have the opposite response, with a coefficient of -.035. I can use these to confirm the hypothesis in b that a 1% increase in A's spending is offset by a 1% increase in B's spending. 
 
 
 
@@ -96,9 +102,18 @@ In the model,
 $$log(salary) = \beta_{0} + \beta_{1}LSAT + \beta_{3}log(libvol) + \beta_{4}log(cost) $$
 
 ```{r}
+data("lawsch85", package='wooldridge')
+attach(lawsch85)
 
+m2 <- lm(salary~LSAT+llibvol+lcost)
+m3 <- lm(salary~rank+LSAT+llibvol+lcost)
+#m22 <- lm(data$salary~data$LSAT+log(data$libvol)+log(data$cost)+data$rank)
+
+detach(lawsch85)
+#m22
+summary(m3)
 ```
-
+The null hypothesis is that B5(rank) /= 0. That isn't held up in the model.
 
 
 
@@ -111,11 +126,11 @@ Are features of the incoming  class of students- namely, LSAT and GPA-individual
 
 
 
+m4 <- lm(salary~LSAT+GPA)
 
+summary(m4)
 
-
-
-
+#check with degrees of freedom
 
 #### c) 
 
@@ -135,7 +150,7 @@ Test whether the size of the entering class (*clsize*) or the size of the facult
 
 What factors might influence the rank of the law school that are not included in the salary regression?
 
-
+There's plenty of other factors in the dataset, such as no. of faculty, the student-faculty ratio, and we could imagine many others such as the average incoming GPA, the acceptance rate, or even the rank of the law school by budget. 
 
 
 
@@ -153,9 +168,10 @@ Use the data in ELEM94_95 to answer this question. The findings can be compared 
 Run the simple regression of *lavgsal* on *bs*. Is the estimated slope statistically different from zero? Is it statistically different from -1? 
 
 ```{r}
-
+m3 <- lm(data$lavgsal~data$bs)
+summary(m3)
 ```
-
+Yes, the slope is statistically different from 0, since the slope is -0.795, which is many times greater than the standard error of .15. Given that standard error the slope is slightly statistically different from -1, since the true population slope is unlikely to be -1. 
 
 
 
@@ -168,9 +184,10 @@ Run the simple regression of *lavgsal* on *bs*. Is the estimated slope statistic
 Add the variables *lenrol* and *lstaff* to the regression from part i. What happens to coefficient on *bs* How does the situation compare with that in Table 4.1?
 
 ```{r}
-
+m32 <- lm(data$lavgsal~data$bs+data$lenrol+data$lstaff)
+summary(m32)
 ```
-
+The coefficient on bs decreases to -0.61, however it has less variance now with a se of .11 The intercept went up by 3, R squared went from 0.015 to 0.48, so it's possible that bs wasn't explaining much of the regression before. 
 
 
 
@@ -183,7 +200,7 @@ Add the variables *lenrol* and *lstaff* to the regression from part i. What happ
 How come the standard error on the *bs* coefficient is smaller in part ii than in part i? Hint: What happens to the error variance versus multicollinearity when *lenrol* and *lstaff* are added?
 
 
-
+Now that we have a more exact model some of the variation which was accounted to bs can be explained by variation in the other variables, lenrol and lstaff. There is little multicollinearity because lenrol and lstaff have very different coefficients (what's the technical term for that?)
 
 
 
@@ -191,9 +208,9 @@ How come the standard error on the *bs* coefficient is smaller in part ii than i
 
 #### d) 
 
-How come the coefficient on *lstaff* is negative? Is it large in magnitude?
+How come the coefficient on *lstaff* is negative? Is it large in magnitude (econ sig)?
 
-
+lstaff is the percentage change in the ratio of staff to students. We would expect that as there are more staff per 1000 students the demands on each teacher will go down, and they will be payed a lower salary. lstaff is statistically significant, and economically significant as well, since a 1% change in teacher-student ratio equals a -0.71% change in salary. 
 
 
 
@@ -208,9 +225,10 @@ Now add the variable *lunch* to the regression. Holding other factors fixed, are
 
 
 ```{r}
-
+m33 <- lm(formula = data$lavgsal ~ data$bs + data$lenrol + data$lstaff + data$lunch)
+summary(m33)
 ```
-
+It would appear that teachers are not being compensated for teaching disadvantaged students, and in fact the opposite is true. We can infer that districts with many disadvantaged students have smaller budgets, and thus teachers are paid less. 
 
 
 
