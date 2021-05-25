@@ -32,7 +32,7 @@ where *voteA* is the percentage of the vote received by Candidate A, *expendA* a
 
 What is the interpretation of $$\beta_0$$?
 
-
+Beta_0 is the amount of votes that Candidate A would get if they spent nothing on their campaign, their opponent spent nothing on their campaign, and their party didn't recieve any votes in the most recent presidential election. Basically, it's the votes that are due to all other factors, likely primarily the personality and platform of Candidate A. 
 
 
 
@@ -55,7 +55,9 @@ Estimate the given model using the data in VOTE1 and report the results in usual
 
 
 ```{r}
-
+library(wooldridge)
+vote1 <- data("vote1", package='wooldridge')
+vote1
 ```
 
 
