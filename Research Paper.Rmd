@@ -1,6 +1,6 @@
 ---
 title: "Research Paper"
-author: "Curtis Mortensen"
+author: "Max Krupczynski and Curtis Mortensen"
 date: "19/05/2021"
 output: pdf_document
 ---
@@ -9,24 +9,70 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Author's Notes
+http://mozzherin.org/2015/12/05/r-graphs-in-latex.html - for transfering this to overleaf. 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+The data in question is too large to be loaded in Git. Some work-arounds are suggested when we try to push the commit. 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+One illustration, 3 variables, summary stats, data limitations. 
 
-```{r cars}
-summary(cars)
+##Data Analysis 
+From the CPS Labor data, which contains about 30,000 interviews per month, and 50 variables, we selected the following variables:
+
+intmonth, minsamp, state, fips, county, smsastat, centcity, hourslw, grade92
+
+Interview month - intmonth
+Month in sample - minsamp
+State - "" 
+State FIPS code - fips 
+County FIPS code - county 
+Metropolitan status code - smsastat 
+Central city code - centcity
+How many hours last all jobs
+Earnings per hour - earnhre
+ How many hours last week? - hourslw
+Earnings per week - earnwke
+  3-digit industry code
+   Detailed industry code
+   
+Education
+Highest grade completed - grade92
+
+
+
+```{r}
+library(haven)
+library(tidyverse)
+morg00 <- read_dta("morg00.dta")
+View(morg00)
+
+#vars <- select(morg00, ethnic, race)
+#write.table(vars, file="~/econ388/vars.csv")
+#we're gonna wanna sort the people who do and don't have earnhre
+
+#incomplete_vars <- select(morg00, )
+
+incomp <- morg00 %>% 
+  filter(is.na(earnhre))
+
+#incomp1 <- incomp[!is.na(incomp$hourslw), !is.na(incomp$earnwke)]
+# I couldn't get this to work, but the below did
+
+#or 
+
+library(tidyr)
+incomp2 <- morg00 %>% drop_na(earnwke, hourslw)
+
+# ! = not
+# k next we get to populate the NAs, and then bind them back. 
+#185,958 values were NA, out of 283,236, and 154,533 of those had earnwke and hourslw. Let's verify it:
+
+sum(is.na(incomp2$earnwke))
+sum(is.na(incomp2$hourslw))
+
+#verified. Now to populate, then merge back. 
+#alternatively, I could just mutate based on an if statement to not have to remove and repop, and I also only want those rows that *do* have values for weekly
+
+#incomp %>% mutate(earnhre = ifelse(column1 %in% 1:3, column2, column3))
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
-# http://mozzherin.org/2015/12/05/r-graphs-in-latex.html - for transfering this to overleaf. 
