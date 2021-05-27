@@ -76,3 +76,19 @@ sum(is.na(incomp2$hourslw))
 #incomp %>% mutate(earnhre = ifelse(column1 %in% 1:3, column2, column3))
 ```
 
+The problem we encountered was that it is hard to extrapolate unemployment from this data. Also, if we sort the data by wage bins, our model would have to predict the effect on minimum wage on multiple different bins, that also affect each other as workers move between them. We're not sure we can capture that interaction in OLS. 
+
+There's a couple of options we came up with:
+1. If we assume that this was a representative sample we can possibly measure the amount of people who reported themselves as unemployed before and after a wage change, and extrapolate based on total state population how that may have changed the unemployment. We could also sort the people who did report being employed by wage bins, and see how the number of those bins changed, but we would have no guarentee that the same individuals were surveyed before and after. Since we don't know that, we wouldn't be able to be sure that some individuals didn't move states, or get much higher paying jobs, etc. 
+
+Hypothetically, if we divided our population into 10 bins, say from $10 - $15, we could then report the increase or decrease in each wage bin as a data point. 
+
+However, our model would have to have multiple dependent variables - each change in the wage bin would be a seperate y. 
+
+2. Alternatively, we could limit our data to paired survey results, for the same individuals. We could then see what percentage of them had an increase in wage, and what percentage of them became unemployed, and we could limit that data further by low-wage workers. 
+
+We could limit the data to individuals who were given the initial survey before the wage change, and then only individuals who were given the followup after the wage change. Even though we couldn't be sure they were the same individuals since they don't have identification numbers, we could be fairly certain we had captured the same population. 
+
+The ideal would be to have a program, possibly a seris of if statements, that we give a state's FIPS number and the month a wage change occurred, and then it cleans the data for us, over 3 years, for all the paired individuals who were surveyed before and after. 
+
+3. The last option we came up with would just be to extrapolate unemployment based on this representative sample. We could just multiply the percentage of the population surveyed by the total state population, and take as data points the change in the state unemployment from before to after the change. It would only give us one data point for each wage change, so our model might not be as robust, but it was what the other labor group seemed to be planning on doing. 
