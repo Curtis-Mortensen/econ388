@@ -57,10 +57,11 @@ Estimate the given model using the data in VOTE1 and report the results in usual
 
 
 ```{r}
-expendA <- data$expendA
-expendB <- data$expendB
-prtyA <- data$prtystrA
-voteA <- data$voteA
+data("vote1", package='wooldridge')
+expendA <- na.omit(vote1$expendA)
+expendB <- vote1$expendB
+prtyA <- vote1$prtystrA
+voteA <- vote1$voteA
 
 m1 <- lm(voteA ~ expendA + expendB + prtyA)
 m1
@@ -79,11 +80,11 @@ Yes, A's expendatures have a coefficient of .035, so each 1% increase in spendin
 Estimate a model that directly gives the t statistic for testing the hypothesis in part ii. What do you conclude? Use a two-sided alternative.
 
 ```{r}
-
+t.test(vote1$expendA, mu=0, alternative = 'greater')
 ```
 
 
-
+I haven't been able to figure out exactly how to run a t test for 2 variables. I might have been able to with more time, but I haven't so far... 
 
 
 
@@ -106,12 +107,10 @@ data("lawsch85", package='wooldridge')
 attach(lawsch85)
 
 m2 <- lm(salary~LSAT+llibvol+lcost)
-m3 <- lm(salary~rank+LSAT+llibvol+lcost)
-#m22 <- lm(data$salary~data$LSAT+log(data$libvol)+log(data$cost)+data$rank)
+m22 <- lm(salary~rank+LSAT+llibvol+lcost)
 
 detach(lawsch85)
-#m22
-summary(m3)
+summary(m22)
 ```
 The null hypothesis is that B5(rank) /= 0. That isn't held up in the model.
 
@@ -138,10 +137,13 @@ Test whether the size of the entering class (*clsize*) or the size of the facult
 
 
 ```{r}
-
+attach(lawsch85)
+m4 <- lm(salary~LSAT+GPA+clsize+faculty)
+detach(lawsch85)
+summary(m4)
 ```
 
-
+Based on my model, class size could be included in my equation: it does add greater specificity to my model. However, faculty does not. 
 
 
 
@@ -168,8 +170,11 @@ Use the data in ELEM94_95 to answer this question. The findings can be compared 
 Run the simple regression of *lavgsal* on *bs*. Is the estimated slope statistically different from zero? Is it statistically different from -1? 
 
 ```{r}
-m3 <- lm(data$lavgsal~data$bs)
+data("elem94_95", package='wooldridge')
+attach(elem94_95)
+m3 <- lm(lavgsal~bs)
 summary(m3)
+detach(elem94_95)
 ```
 Yes, the slope is statistically different from 0, since the slope is -0.795, which is many times greater than the standard error of .15. Given that standard error the slope is slightly statistically different from -1, since the true population slope is unlikely to be -1. 
 
@@ -184,7 +189,7 @@ Yes, the slope is statistically different from 0, since the slope is -0.795, whi
 Add the variables *lenrol* and *lstaff* to the regression from part i. What happens to coefficient on *bs* How does the situation compare with that in Table 4.1?
 
 ```{r}
-m32 <- lm(data$lavgsal~data$bs+data$lenrol+data$lstaff)
+m32 <- lm(elem94_95$lavgsal~elem94_95$bs+elem94_95$lenrol+elem94_95$lstaff)
 summary(m32)
 ```
 The coefficient on bs decreases to -0.61, however it has less variance now with a se of .11 The intercept went up by 3, R squared went from 0.015 to 0.48, so it's possible that bs wasn't explaining much of the regression before. 
@@ -225,7 +230,7 @@ Now add the variable *lunch* to the regression. Holding other factors fixed, are
 
 
 ```{r}
-m33 <- lm(formula = data$lavgsal ~ data$bs + data$lenrol + data$lstaff + data$lunch)
+m33 <- lm(formula = elem94_95$lavgsal ~ elem94_95$bs + elem94_95$lenrol + elem94_95$lstaff + elem94_95$lunch)
 summary(m33)
 ```
 It would appear that teachers are not being compensated for teaching disadvantaged students, and in fact the opposite is true. We can infer that districts with many disadvantaged students have smaller budgets, and thus teachers are paid less. 
@@ -239,7 +244,7 @@ It would appear that teachers are not being compensated for teaching disadvantag
 
 Overall, is the pattern of results that you find with ELEM94_95 consistent with the pattern in Table 4.1 (found in the textbook on page 138)?
 
-
+So, assuming I got the right table (it was actually on 119 for my digital edition), and assuming I understood the homoskedastic normal distribution with a single explanatory variable correctly, I think my data is different. Specifically, my model has more than one explanatory variable, although I think all the variables are homoskedastic. 
 
 
 
@@ -261,10 +266,17 @@ $$ educ = \beta_0 + \beta_1motheduc + \beta_2fatheduc + \beta_3abil + b_4abil^2 
 by OLS and report the results in the usual form. Test the null hypothesis that educ is linearly related to abil against the alternative that the relationship is quadratic. 
 
 ```{r}
+data("htv", package='wooldridge')
+attach(htv)
+abil2 <- abil^2
+m4 <- lm(educ~motheduc+fatheduc+abil2)
+m4og <- lm(educ~motheduc+fatheduc+abil)
 
+summary(m4)
+summary(m4og)
 ```
 
-
+It would appear that the relationship between education and ability is linear as opposed to quadratic. There is a better t value and better r squared for the model that evaluates ability as linear. 
 
 
 
@@ -273,7 +285,7 @@ by OLS and report the results in the usual form. Test the null hypothesis that e
 
 Using the equation in part i, test $$H_0: \beta_1 = \beta_2$$ against a two-sided alternative. What is the p-value of the test?
 
-
+I'm still having trouble running t tests :(
 
 
 
@@ -285,9 +297,18 @@ Using the equation in part i, test $$H_0: \beta_1 = \beta_2$$ against a two-side
 Add the two college tuition variables to the regression from part i and determine whether they are jointly statistically significant. 
 
 
+```{r}
+data("htv", package='wooldridge')
+attach(htv)
+tuit <- (tuit17+tuit18)/2
+m42 <- lm(educ~motheduc+fatheduc+abil+tuit)
+m43 <- lm(educ~motheduc+fatheduc+abil+tuit17+tuit18)
 
+summary(m42)
+summary(m43)
+```
 
-
+It does not appear that tuition is jointly significant, assuming that I added it together correctly. I also evaluated both tuit17 and tuit18 seperately and found them not significant.
 
 
 
@@ -298,7 +319,7 @@ What is the correlation between tuit17 and tuit18? Explain why using the average
 
 
 
-
+I'm still not able to discern statistical significance from the tuition data, which makes me think that I'm doing something wrong. Using the average doesn't change that, but might be preferred since the there may have been other factors influencing tuition in one year or another, like a scholarship, and so it doesn't make sense to evaluate them individually. Any motivation we might care about in one year will be present in the other. 
 
 
 
