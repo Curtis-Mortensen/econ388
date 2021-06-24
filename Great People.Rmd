@@ -1,0 +1,30 @@
+---
+title: "Great People"
+author: "Curtis Mortensen"
+date: "23/06/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Great People
+
+
+```{r}
+library(tidyverse)
+library(data.table) # for fread, which is the fastest out there. 
+survey <- data_frame(
+  respondant = c("Andrew", "Zane", "Curtis")
+)
+
+setNames(survey, c("leaders", "roosevelt", "wilson", "lenin"))
+headings <- fread("leaders.csv")
+
+# I'm not sure if append will work with the new data_frame instead of data.frame
+survey.new <- data_frame(append(survey, list(ID = "", age = ""), after =  1))
+survey.new
+#nope, no likey
+#man that's a pain 
+```
